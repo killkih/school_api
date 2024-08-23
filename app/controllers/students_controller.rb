@@ -3,7 +3,8 @@ class StudentsController < ApplicationController
   before_action :set_student, only: :destroy
 
   def create
-    @student = Student.new(student_params)
+    @klass = Klass.find(params[:klass_id])
+    @student = @klass.students.new(student_params)
 
     if @student.save
       render json: @student, status: :created, location: @student
@@ -23,6 +24,6 @@ class StudentsController < ApplicationController
   end
 
   def student_params
-    params.require(:student).permit(:first_name, :last_name, :surname, :class_id, :school_id)
+    params.require(:student).permit(:first_name, :last_name, :surname, :klass_id, :school_id)
   end
 end
