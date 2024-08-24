@@ -1,5 +1,10 @@
 class StudentsController < ApplicationController
 
+  def index
+    @students = Student.where(school_id: params[:school_id], klass_id: params[:class_id])
+    render json: @students
+  end
+
   def create
     @student = Student.new(student_params)
 
